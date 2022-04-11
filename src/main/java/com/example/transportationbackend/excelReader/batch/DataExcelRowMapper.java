@@ -1,28 +1,39 @@
 package com.example.transportationbackend.excelReader.batch;
 
-import com.example.transportationbackend.excelReader.models.RoadInputModel;
+import com.example.transportationbackend.excelReader.models.LightPostInput;
+import com.example.transportationbackend.excelReader.models.PathInputModel;
 import org.springframework.batch.item.excel.RowMapper;
 import org.springframework.batch.item.excel.support.rowset.RowSet;
 
-public class DataExcelRowMapper implements RowMapper<RoadInputModel> {
+import java.util.ArrayList;
+import java.util.List;
+
+public class DataExcelRowMapper implements RowMapper<PathInputModel> {
+
+    private final List<LightPostInput> lightPostList = new ArrayList<>();
 
     @Override
-    public RoadInputModel mapRow(RowSet rowSet) throws Exception {
-        RoadInputModel road = new RoadInputModel();
-
+    public PathInputModel mapRow(RowSet rowSet) throws Exception {
+        PathInputModel path = new PathInputModel();
+        LightPostInput lightPost = new LightPostInput();
         try {
-            road.setFirstPoint(rowSet.getColumnValue(0));
-            road.setSecondPoint(rowSet.getColumnValue(1));
-            road.setWidth(rowSet.getColumnValue(2));
-            road.setDistanceEachLightPost(rowSet.getColumnValue(3));
-            road.setLightPostOnRoadSides(rowSet.getColumnValue(4));
-            road.setLp_height(rowSet.getColumnValue(5));
-            road.setLp_power(rowSet.getColumnValue(6));
-            road.setLp_lightProductionType(rowSet.getColumnValue(7));
-        }
-        catch (Exception e){
+            path.setFirstPoint(rowSet.getColumnValue(0));
+            path.setSecondPoint(rowSet.getColumnValue(1));
+            path.setWidth(rowSet.getColumnValue(2));
+            path.setCablePass(rowSet.getColumnValue(3));
+            path.setDistanceEachLightPost(rowSet.getColumnValue(4));
+            path.setLightPostOnPathSides(rowSet.getColumnValue(5));
+
+            lightPost.setPower(rowSet.getColumnValue(6));
+            lightPost.setHeight(rowSet.getColumnValue(7));
+            lightPost.setLightProductionType(rowSet.getColumnValue(8));
+
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        return road;
+
+        lightPostList.add(lightPost);
+        path.setLightPostList(lightPostList);
+        return path;
     }
 }

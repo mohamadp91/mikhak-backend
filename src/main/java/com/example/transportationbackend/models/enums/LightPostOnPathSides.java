@@ -1,6 +1,6 @@
 package com.example.transportationbackend.models.enums;
 
-public enum LightPostOnRoadSides {
+public enum LightPostOnPathSides {
     ONE_SIDE,
     TWO_SIDES
 }

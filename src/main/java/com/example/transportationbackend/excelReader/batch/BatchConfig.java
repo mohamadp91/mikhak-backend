@@ -2,8 +2,11 @@ package com.example.transportationbackend.excelReader.batch;
 
 import com.example.transportationbackend.excelReader.batch.listener.JobCompletionNotificationListener;
 import com.example.transportationbackend.excelReader.batch.listener.StepCompletionListener;
-import com.example.transportationbackend.excelReader.models.RoadInputModel;
-import com.example.transportationbackend.models.Road;
+import com.example.transportationbackend.excelReader.models.PathInputModel;
+import com.example.transportationbackend.models.LightPost;
+import com.example.transportationbackend.models.PathEntity;
+import com.example.transportationbackend.repositories.LightPostRepository;
+import com.example.transportationbackend.repositories.PathRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.batch.core.Job;
@@ -41,8 +44,14 @@ public class BatchConfig {
     @Autowired
     private JobCompletionNotificationListener listener;
 
+    @Autowired
+    private PathRepository pathRepository;
+
+    @Autowired
+    private LightPostRepository lightPostRepository;
+
     @Bean
-    public Job importRoadData(JobCompletionNotificationListener listener,Step step1) throws Exception {
+    public Job importRoadData(JobCompletionNotificationListener listener, Step step1) throws Exception {
         return jobBuilderFactory.get("importRoadData")
                 .incrementer(new RunIdIncrementer())
                 .listener(listener)
@@ -52,7 +61,7 @@ public class BatchConfig {
 
     @Bean
     public Step step1() {
-        return stepBuilderFactory.get("step1").<RoadInputModel, Road>chunk(10)
+        return stepBuilderFactory.get("step1").<PathInputModel, PathEntity>chunk(10)
                 .listener(new StepCompletionListener())
                 .reader(reader(null))
                 .faultTolerant().skipPolicy(createSkipPolicy())
@@ -70,17 +79,22 @@ public class BatchConfig {
     }
 
     @Bean
-    public ItemProcessor<RoadInputModel, Road> processor() {
+    public ItemProcessor<PathInputModel, PathEntity> processor() {
         return new DataProcessor();
     }
 
     @Bean
-    ItemWriter<Road> writer() {
-        return new ItemWriter<Road>() {
+    ItemWriter<PathEntity> writer() {
+        return new ItemWriter<PathEntity>() {
             @Override
-            public void write(List<? extends Road> roadList) throws Exception {
-                for (Road road : roadList) {
-                    System.out.println("begin from : " + road.getFirstPoint() + " \t to :" + road.getSecondPoint());
+            public void write(List<? extends PathEntity> pathList) throws Exception {
+                for (PathEntity pathEntity : pathList) {
+                    System.out.println(pathEntity.getLightPosts().size());
+                    pathRepository.save(pathEntity);
+                    for (LightPost lightPost : pathEntity.getLightPosts()) {
+                        if (!lightPostRepository.existsById(lightPost.getId()))
+                            lightPostRepository.save(lightPost);
+                    }
                 }
             }
         };

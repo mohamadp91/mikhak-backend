@@ -2,16 +2,15 @@ package com.example.transportationbackend.excelReader.models;
 
 import lombok.Data;
 
+import java.util.List;
+
 @Data
-public class RoadInputModel {
+public class PathInputModel {
     private String firstPoint;
     private String secondPoint;
     private String width;
     private String distanceEachLightPost;
     private String cablePass;
-    private String lp_height;
-    private String lp_power;
-    private String lp_lightProductionType;
-    private String lightPostOnRoadSides;
-
+    private String lightPostOnPathSides;
+    private List<LightPostInput> lightPostList;
 }

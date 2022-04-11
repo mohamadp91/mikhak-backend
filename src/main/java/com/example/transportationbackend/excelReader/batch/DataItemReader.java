@@ -1,19 +1,15 @@
 package com.example.transportationbackend.excelReader.batch;
 
-import com.example.transportationbackend.excelReader.models.RoadInputModel;
-import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
+import com.example.transportationbackend.excelReader.models.PathInputModel;
 import org.springframework.batch.core.configuration.annotation.StepScope;
-import org.springframework.batch.item.ItemStreamException;
 import org.springframework.batch.item.excel.RowMapper;
 import org.springframework.batch.item.excel.poi.PoiItemReader;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.stereotype.Component;
 
 @Component
 @StepScope
-public class DataItemReader extends PoiItemReader<RoadInputModel> {
+public class DataItemReader extends PoiItemReader<PathInputModel> {
 
     private String filePath;
 
@@ -21,7 +17,7 @@ public class DataItemReader extends PoiItemReader<RoadInputModel> {
         setRowMapper(excelRowMapper());
     }
 
-    private RowMapper<RoadInputModel> excelRowMapper() {
+    private RowMapper<PathInputModel> excelRowMapper() {
         return new DataExcelRowMapper();
     }
 

@@ -1,10 +1,15 @@
 package com.example.transportationbackend.models;
 
-
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonIncludeProperties;
 import jakarta.persistence.*;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Data
+@NoArgsConstructor
 @Entity
-@Table(name = "light_post")
+@Table(name = "light_post_tb")
 public class LightPost {
 
     @Id
@@ -12,37 +17,27 @@ public class LightPost {
     private long id;
 
     @Column(name = "height")
-    private int height;
+    private Double height;
+
     @Column(name = "power")
-    private int power;
+    private Double power;
+
     @Column(name = "light_production_type")
     private String lightProductionType;
 
-    public long getId() {
-        return id;
-    }
+    @ManyToOne
+    @JoinColumn(name = "pathId")
+    @JsonIncludeProperties(value = "firstPoint")
+    private PathEntity path;
 
-    public int getHeight() {
-        return height;
-    }
+    public LightPost(Double height,
+                     Double power,
+                     String lightProductionType,
+                     PathEntity path) {
 
-    public void setHeight(int height) {
         this.height = height;
-    }
-
-    public int getPower() {
-        return power;
-    }
-
-    public void setPower(int power) {
         this.power = power;
-    }
-
-    public String getLightProductionType() {
-        return lightProductionType;
-    }
-
-    public void setLightProductionType(String lightProductionType) {
         this.lightProductionType = lightProductionType;
+        this.path = path;
     }
 }
