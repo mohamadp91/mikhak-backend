@@ -27,7 +27,7 @@ public class Controller {
     private PathRepository pathRepository;
 
     @Autowired
-    private LightPostRepository lightPostRepository;
+    private LightPostRepository lpRepository;
 
 
     @Autowired
@@ -46,7 +46,7 @@ public class Controller {
 
     @GetMapping("/lightposts")
     public List<LightPost> getLightPosts() {
-        return lightPostRepository.findAll();
+        return lpRepository.findAll();
     }
 
     @PostMapping(value = "/upload_file")

@@ -5,35 +5,33 @@ import com.example.transportationbackend.excelReader.models.PathInputModel;
 import org.springframework.batch.item.excel.RowMapper;
 import org.springframework.batch.item.excel.support.rowset.RowSet;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class DataExcelRowMapper implements RowMapper<PathInputModel> {
-
-    private final List<LightPostInput> lightPostList = new ArrayList<>();
+public class DataExcelRowMapper implements RowMapper<LightPostInput> {
 
     @Override
-    public PathInputModel mapRow(RowSet rowSet) throws Exception {
+    public LightPostInput mapRow(RowSet rowSet) throws Exception {
+
         PathInputModel path = new PathInputModel();
         LightPostInput lightPost = new LightPostInput();
-        try {
-            path.setFirstPoint(rowSet.getColumnValue(0));
-            path.setSecondPoint(rowSet.getColumnValue(1));
-            path.setWidth(rowSet.getColumnValue(2));
-            path.setCablePass(rowSet.getColumnValue(3));
-            path.setDistanceEachLightPost(rowSet.getColumnValue(4));
-            path.setLightPostOnPathSides(rowSet.getColumnValue(5));
 
-            lightPost.setPower(rowSet.getColumnValue(6));
-            lightPost.setHeight(rowSet.getColumnValue(7));
-            lightPost.setLightProductionType(rowSet.getColumnValue(8));
+        try {
+            path.setPathId(rowSet.getColumnValue(0));
+            path.setFirstPoint(rowSet.getColumnValue(1));
+            path.setSecondPoint(rowSet.getColumnValue(2));
+            path.setWidth(rowSet.getColumnValue(3));
+            path.setCablePass(rowSet.getColumnValue(4));
+            path.setDistanceEachLightPost(rowSet.getColumnValue(5));
+
+            lightPost.setLightPostId(rowSet.getColumnValue(6));
+            lightPost.setSides(rowSet.getColumnValue(6));
+            lightPost.setPower(rowSet.getColumnValue(8));
+            lightPost.setHeight(rowSet.getColumnValue(9));
+            lightPost.setLightProductionType(rowSet.getColumnValue(10));
 
         } catch (Exception e) {
             e.printStackTrace();
         }
+        lightPost.setPath(path);
 
-        lightPostList.add(lightPost);
-        path.setLightPostList(lightPostList);
-        return path;
+        return lightPost;
     }
 }

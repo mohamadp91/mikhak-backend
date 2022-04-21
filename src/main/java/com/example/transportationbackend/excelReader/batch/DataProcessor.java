@@ -5,7 +5,7 @@ import com.example.transportationbackend.excelReader.models.PathInputModel;
 import com.example.transportationbackend.models.LightPost;
 import com.example.transportationbackend.models.PathEntity;
 import com.example.transportationbackend.models.enums.CablePass;
-import com.example.transportationbackend.models.enums.LightPostOnPathSides;
+import com.example.transportationbackend.models.enums.LightPostSides;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 
@@ -14,54 +14,57 @@ import java.util.List;
 
 
 @Service
-public class DataProcessor implements ItemProcessor<PathInputModel, PathEntity> {
+public class DataProcessor implements ItemProcessor<LightPostInput, LightPost> {
 
-    private final String lightPostOnPathSidesString = "دوطرفه ";
+    private final String lightPostSidesString = "دوطرفه";
     private final String CablePassString = "bottom";
 
     @Override
-    public PathEntity process(PathInputModel item) throws Exception {
+    public LightPost process(LightPostInput lp) throws Exception {
         PathEntity pathEntity = new PathEntity();
-        List<LightPost> lightPostList = new ArrayList<>();
+        LightPost lpEntity = new LightPost();
+        List<LightPost> lpList = new ArrayList<>();
 
         try {
-            for (LightPostInput lightPostInputModel : item.getLightPostList()) {
-                LightPost lightPostEntity = new LightPost(Double.parseDouble(lightPostInputModel.getHeight())
-                        ,Double.parseDouble(lightPostInputModel.getPower())
-                        ,lightPostInputModel.getLightProductionType()
-                        ,pathEntity);
+            lpEntity.setLightPostId(Double.parseDouble(lp.getLightPostId()));
+            lpEntity.setHeight(Double.parseDouble(lp.getHeight()));
+            lpEntity.setPower(Double.parseDouble(lp.getPower()));
+            lpEntity.setLightProductionType(lp.getLightProductionType());
+            lpEntity.setPath(pathEntity);
 
-                lightPostList.add(lightPostEntity);
-            }
+            if (equalStrings(lightPostSidesString, lp.getSides()))
+                lpEntity.setSides(LightPostSides.TWO_SIDES);
+            else
+                lpEntity.setSides(LightPostSides.ONE_SIDE);
+
+            lpList.add(lpEntity);
         } catch (Exception e) {
             e.printStackTrace();
-            System.out.println("error in 2");
+            System.out.println("an error occurred in processor read light post");
         }
 
         try {
-            pathEntity.setFirstPoint(item.getFirstPoint());
-            pathEntity.setSecondPoint(item.getSecondPoint());
-            pathEntity.setWidth(Double.parseDouble(item.getWidth()));
-            pathEntity.setDistanceEachLightPost(Double.parseDouble(item.getDistanceEachLightPost()));
+            PathInputModel path = lp.getPath();
+            pathEntity.setPathId(Double.parseDouble(path.getPathId()));
+            pathEntity.setFirstPoint(path.getFirstPoint());
+            pathEntity.setSecondPoint(path.getSecondPoint());
+            pathEntity.setWidth(Double.parseDouble(path.getWidth()));
+            pathEntity.setDistanceEachLightPost(Double.parseDouble(path.getDistanceEachLightPost()));
 
-            if (equalStrings(lightPostOnPathSidesString, item.getLightPostOnPathSides()))
-                pathEntity.setLightPostOnPathSides(LightPostOnPathSides.TWO_SIDES);
-            else
-                pathEntity.setLightPostOnPathSides(LightPostOnPathSides.ONE_SIDE);
-
-            if (equalStrings(CablePassString, item.getCablePass()))
+            if (equalStrings(CablePassString, path.getCablePass()))
                 pathEntity.setCablePass(CablePass.BOTTOM);
             else
                 pathEntity.setCablePass(CablePass.TOP);
 
         } catch (Exception e) {
             e.printStackTrace();
-            System.out.println("error in 1");
+            System.out.println("an error occurred in processor read path");
         }
 
+        pathEntity.setLightPosts(lpList);
+        lpEntity.setPath(pathEntity);
 
-        pathEntity.setLightPosts(lightPostList);
-        return pathEntity;
+        return lpEntity;
     }
 
     private boolean equalStrings(String src, String destination) {
