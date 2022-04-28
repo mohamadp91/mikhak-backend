@@ -1,5 +1,6 @@
 package com.example.transportationbackend.excelReader.batch;
 
+import com.example.transportationbackend.excelReader.models.LightPostInput;
 import com.example.transportationbackend.excelReader.models.PathInputModel;
 import org.springframework.batch.core.configuration.annotation.StepScope;
 import org.springframework.batch.item.excel.RowMapper;
@@ -9,7 +10,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @StepScope
-public class DataItemReader extends PoiItemReader<PathInputModel> {
+public class DataItemReader extends PoiItemReader<LightPostInput> {
 
     private String filePath;
 
@@ -17,7 +18,7 @@ public class DataItemReader extends PoiItemReader<PathInputModel> {
         setRowMapper(excelRowMapper());
     }
 
-    private RowMapper<PathInputModel> excelRowMapper() {
+    private RowMapper<LightPostInput> excelRowMapper() {
         return new DataExcelRowMapper();
     }
 
@@ -25,6 +26,7 @@ public class DataItemReader extends PoiItemReader<PathInputModel> {
         if(filePath != null && !filePath.isEmpty()) {
             try {
                 setResource(new FileSystemResource(filePath));
+                this.setLinesToSkip(1);
             }
             catch (Exception e){
                 e.printStackTrace();

@@ -34,7 +34,6 @@ public class JobCompletionNotificationListener extends JobExecutionListenerSuppo
 
 @Override
 public void beforeJob(JobExecution jobExecution) {
-	// TODO Auto-generated method stub
 	super.beforeJob(jobExecution);
 }
   

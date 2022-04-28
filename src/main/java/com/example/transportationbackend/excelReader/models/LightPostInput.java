@@ -4,7 +4,10 @@ import lombok.Data;
 
 @Data
 public class LightPostInput {
+    private String lightPostId;
+    private String sides;
     private String height;
     private String power;
     private String lightProductionType;
+    private PathInputModel path;
 }

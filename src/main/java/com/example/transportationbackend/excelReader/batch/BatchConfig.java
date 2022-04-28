@@ -2,9 +2,10 @@ package com.example.transportationbackend.excelReader.batch;
 
 import com.example.transportationbackend.excelReader.batch.listener.JobCompletionNotificationListener;
 import com.example.transportationbackend.excelReader.batch.listener.StepCompletionListener;
-import com.example.transportationbackend.excelReader.models.PathInputModel;
+import com.example.transportationbackend.excelReader.models.LightPostInput;
+import com.example.transportationbackend.excelReader.models.LightPostInput;
 import com.example.transportationbackend.models.LightPost;
-import com.example.transportationbackend.models.PathEntity;
+import com.example.transportationbackend.models.LightPost;
 import com.example.transportationbackend.repositories.LightPostRepository;
 import com.example.transportationbackend.repositories.PathRepository;
 import org.slf4j.Logger;
@@ -21,6 +22,9 @@ import org.springframework.batch.core.step.skip.SkipPolicy;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.batch.item.file.FlatFileParseException;
+import org.springframework.batch.repeat.CompletionPolicy;
+import org.springframework.batch.repeat.RepeatContext;
+import org.springframework.batch.repeat.RepeatStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -41,15 +45,6 @@ public class BatchConfig {
     @Autowired
     private StepBuilderFactory stepBuilderFactory;
 
-    @Autowired
-    private JobCompletionNotificationListener listener;
-
-    @Autowired
-    private PathRepository pathRepository;
-
-    @Autowired
-    private LightPostRepository lightPostRepository;
-
     @Bean
     public Job importRoadData(JobCompletionNotificationListener listener, Step step1) throws Exception {
         return jobBuilderFactory.get("importRoadData")
@@ -61,7 +56,7 @@ public class BatchConfig {
 
     @Bean
     public Step step1() {
-        return stepBuilderFactory.get("step1").<PathInputModel, PathEntity>chunk(10)
+        return stepBuilderFactory.get("step1").<LightPostInput, LightPost>chunk(10)
                 .listener(new StepCompletionListener())
                 .reader(reader(null))
                 .faultTolerant().skipPolicy(createSkipPolicy())
@@ -79,25 +74,13 @@ public class BatchConfig {
     }
 
     @Bean
-    public ItemProcessor<PathInputModel, PathEntity> processor() {
+    public ItemProcessor<LightPostInput, LightPost> processor() {
         return new DataProcessor();
     }
 
     @Bean
-    ItemWriter<PathEntity> writer() {
-        return new ItemWriter<PathEntity>() {
-            @Override
-            public void write(List<? extends PathEntity> pathList) throws Exception {
-                for (PathEntity pathEntity : pathList) {
-                    System.out.println(pathEntity.getLightPosts().size());
-                    pathRepository.save(pathEntity);
-                    for (LightPost lightPost : pathEntity.getLightPosts()) {
-                        if (!lightPostRepository.existsById(lightPost.getId()))
-                            lightPostRepository.save(lightPost);
-                    }
-                }
-            }
-        };
+    ItemWriter<LightPost> writer() {
+        return new DataItemWriter();
     }
 
     @Bean
@@ -118,7 +101,7 @@ public class BatchConfig {
                     errorMessage.append(ffpe.getLineNumber());
                     errorMessage.append(" line of the file '");
 
-                    Pattern pattern = Pattern.compile(".*(\\W\\w+\\.csv).*");
+                    Pattern pattern = Pattern.compile(".*(\\W\\w+\\.xlsx).*");
                     Matcher matcher = pattern.matcher(ffpe.toString());
                     if (matcher.matches())
                         errorMessage.append(matcher.group(1));

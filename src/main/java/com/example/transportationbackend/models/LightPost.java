@@ -1,20 +1,27 @@
 package com.example.transportationbackend.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.example.transportationbackend.models.enums.LightPostSides;
 import com.fasterxml.jackson.annotation.JsonIncludeProperties;
 import jakarta.persistence.*;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
 @Entity
 @Table(name = "light_post_tb")
 public class LightPost {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long columnId;
+
+    @Column(name = "light_post_id",
+            nullable = false,
+            unique = true)
+    private Double lightPostId;
+
+    @Column(name = "sides")
+    @Enumerated(EnumType.STRING)
+    private LightPostSides sides;
 
     @Column(name = "height")
     private Double height;
@@ -26,18 +33,8 @@ public class LightPost {
     private String lightProductionType;
 
     @ManyToOne
-    @JoinColumn(name = "pathId")
+    @JoinColumn(name = "culomnId")
     @JsonIncludeProperties(value = "firstPoint")
     private PathEntity path;
 
-    public LightPost(Double height,
-                     Double power,
-                     String lightProductionType,
-                     PathEntity path) {
-
-        this.height = height;
-        this.power = power;
-        this.lightProductionType = lightProductionType;
-        this.path = path;
-    }
 }
