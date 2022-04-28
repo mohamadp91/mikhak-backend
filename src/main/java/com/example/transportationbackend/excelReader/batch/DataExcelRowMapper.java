@@ -10,8 +10,13 @@ public class DataExcelRowMapper implements RowMapper<LightPostInput> {
     @Override
     public LightPostInput mapRow(RowSet rowSet) throws Exception {
 
+        if(rowSet.getCurrentRow() == null){
+            return null;
+        }
+
         PathInputModel path = new PathInputModel();
         LightPostInput lightPost = new LightPostInput();
+
 
         try {
             path.setPathId(rowSet.getColumnValue(0));
@@ -22,16 +27,22 @@ public class DataExcelRowMapper implements RowMapper<LightPostInput> {
             path.setDistanceEachLightPost(rowSet.getColumnValue(5));
 
             lightPost.setLightPostId(rowSet.getColumnValue(6));
-            lightPost.setSides(rowSet.getColumnValue(6));
+            lightPost.setSides(rowSet.getColumnValue(7));
             lightPost.setPower(rowSet.getColumnValue(8));
             lightPost.setHeight(rowSet.getColumnValue(9));
             lightPost.setLightProductionType(rowSet.getColumnValue(10));
 
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("row mapper error *************************");
+            System.out.println(rowSet.getCurrentRowIndex());
+            System.out.println("row mapper error *************************");
+            System.out.println(e.getMessage());
+            if(!rowSet.next()){
+                System.out.println("no confirmed");
+            }
         }
         lightPost.setPath(path);
-
         return lightPost;
+
     }
 }

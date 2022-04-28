@@ -21,6 +21,9 @@ public class DataProcessor implements ItemProcessor<LightPostInput, LightPost> {
 
     @Override
     public LightPost process(LightPostInput lp) throws Exception {
+        if (lp == null || lp.equals(new LightPostInput()))
+            return null;
+
         PathEntity pathEntity = new PathEntity();
         LightPost lpEntity = new LightPost();
         List<LightPost> lpList = new ArrayList<>();
@@ -39,8 +42,8 @@ public class DataProcessor implements ItemProcessor<LightPostInput, LightPost> {
 
             lpList.add(lpEntity);
         } catch (Exception e) {
-            e.printStackTrace();
             System.out.println("an error occurred in processor read light post");
+            System.out.println(e.getMessage());
         }
 
         try {

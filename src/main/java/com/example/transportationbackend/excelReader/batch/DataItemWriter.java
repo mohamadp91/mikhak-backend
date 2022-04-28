@@ -22,6 +22,7 @@ public class DataItemWriter implements ItemWriter<LightPost> {
     @Override
     public void write(List<? extends LightPost> lpLists) throws Exception {
         for (LightPost lp : lpLists) {
+
             if (!isLightPostExists(lp.getLightPostId())) {
 
                 Double pathId = lp.getPath().getPathId();
@@ -36,6 +37,7 @@ public class DataItemWriter implements ItemWriter<LightPost> {
             }
         }
     }
+
 
     public boolean isLightPostExists(Double id) {
         return lpRepository.existsByLightPostId(id);
