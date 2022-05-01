@@ -34,7 +34,7 @@ public class LightPost {
 
     @ManyToOne
     @JoinColumn(name = "culomnId")
-    @JsonIncludeProperties(value = "firstPoint")
+    @JsonIncludeProperties(value = "pathId")
     private PathEntity path;
 
 }

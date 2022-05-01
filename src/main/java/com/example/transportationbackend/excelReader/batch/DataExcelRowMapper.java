@@ -10,9 +10,13 @@ public class DataExcelRowMapper implements RowMapper<LightPostInput> {
     @Override
     public LightPostInput mapRow(RowSet rowSet) throws Exception {
 
-        if (rowSet.getCurrentRow() == null || rowSet.getCurrentRow().length <= 0) {
-            return null;
+        if (rowSet.getCurrentRow() == null) {
+            if (rowSet.next())
+                return new LightPostInput();
+            else
+                return null;
         }
+
 
         PathInputModel path = new PathInputModel();
         LightPostInput lightPost = new LightPostInput();
