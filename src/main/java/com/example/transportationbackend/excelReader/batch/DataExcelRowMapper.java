@@ -10,7 +10,7 @@ public class DataExcelRowMapper implements RowMapper<LightPostInput> {
     @Override
     public LightPostInput mapRow(RowSet rowSet) throws Exception {
 
-        if(rowSet.getCurrentRow() == null){
+        if (rowSet.getCurrentRow() == null || rowSet.getCurrentRow().length <= 0) {
             return null;
         }
 
@@ -37,7 +37,7 @@ public class DataExcelRowMapper implements RowMapper<LightPostInput> {
             System.out.println(rowSet.getCurrentRowIndex());
             System.out.println("row mapper error *************************");
             System.out.println(e.getMessage());
-            if(!rowSet.next()){
+            if (!rowSet.next()) {
                 System.out.println("no confirmed");
             }
         }

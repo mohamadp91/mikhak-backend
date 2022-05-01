@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.lang.Double.parseDouble;
+
 
 @Service
 public class DataProcessor implements ItemProcessor<LightPostInput, LightPost> {
@@ -29,9 +31,9 @@ public class DataProcessor implements ItemProcessor<LightPostInput, LightPost> {
         List<LightPost> lpList = new ArrayList<>();
 
         try {
-            lpEntity.setLightPostId(Double.parseDouble(lp.getLightPostId()));
-            lpEntity.setHeight(Double.parseDouble(lp.getHeight()));
-            lpEntity.setPower(Double.parseDouble(lp.getPower()));
+            lpEntity.setLightPostId(parseDouble(lp.getLightPostId()));
+            lpEntity.setHeight(parseDouble(lp.getHeight()));
+            lpEntity.setPower(parseDouble(lp.getPower()));
             lpEntity.setLightProductionType(lp.getLightProductionType());
             lpEntity.setPath(pathEntity);
 
@@ -48,11 +50,12 @@ public class DataProcessor implements ItemProcessor<LightPostInput, LightPost> {
 
         try {
             PathInputModel path = lp.getPath();
-            pathEntity.setPathId(Double.parseDouble(path.getPathId()));
-            pathEntity.setFirstPoint(path.getFirstPoint());
-            pathEntity.setSecondPoint(path.getSecondPoint());
-            pathEntity.setWidth(Double.parseDouble(path.getWidth()));
-            pathEntity.setDistanceEachLightPost(Double.parseDouble(path.getDistanceEachLightPost()));
+            pathEntity.setPathId(parseDouble(path.getPathId()));
+
+            setCoordinates(pathEntity, path.getFirstPoint(), path.getSecondPoint());
+
+            pathEntity.setWidth(parseDouble(path.getWidth()));
+            pathEntity.setDistanceEachLightPost(parseDouble(path.getDistanceEachLightPost()));
 
             if (equalStrings(CablePassString, path.getCablePass()))
                 pathEntity.setCablePass(CablePass.BOTTOM);
@@ -81,6 +84,16 @@ public class DataProcessor implements ItemProcessor<LightPostInput, LightPost> {
             return true;
         }
         return false;
+    }
+
+    private void setCoordinates(PathEntity path, String firstP, String secondP) {
+        String[] firstPoints = firstP.trim().split(",");
+        path.setLatitude_1(parseDouble(firstPoints[0]));
+        path.setLongitude_1(parseDouble(firstPoints[1]));
+
+        String[] secondPoints = secondP.trim().split(",");
+        path.setLatitude_2(parseDouble(secondPoints[0]));
+        path.setLongitude_2(parseDouble(secondPoints[1]));
     }
 
 }
