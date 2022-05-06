@@ -3,11 +3,7 @@ package com.example.transportationbackend.excelReader.batch;
 import com.example.transportationbackend.excelReader.batch.listener.JobCompletionNotificationListener;
 import com.example.transportationbackend.excelReader.batch.listener.StepCompletionListener;
 import com.example.transportationbackend.excelReader.models.LightPostInput;
-import com.example.transportationbackend.excelReader.models.LightPostInput;
 import com.example.transportationbackend.models.LightPost;
-import com.example.transportationbackend.models.LightPost;
-import com.example.transportationbackend.repositories.LightPostRepository;
-import com.example.transportationbackend.repositories.PathRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.batch.core.Job;
@@ -22,16 +18,12 @@ import org.springframework.batch.core.step.skip.SkipPolicy;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.batch.item.file.FlatFileParseException;
-import org.springframework.batch.repeat.CompletionPolicy;
-import org.springframework.batch.repeat.RepeatContext;
-import org.springframework.batch.repeat.RepeatStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import java.io.FileNotFoundException;
-import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 

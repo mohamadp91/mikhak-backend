@@ -21,11 +21,17 @@ public class PathEntity {
             unique = true)
     private Double pathId;
 
-    @Column(name = "first_point")
-    private String firstPoint;
+    @Column(name = "latitude_1")
+    private double latitude_1;
 
-    @Column(name = "second_point")
-    private String secondPoint;
+    @Column(name = "longitude_1")
+    private double longitude_1;
+
+    @Column(name = "latitude_2")
+    private double latitude_2;
+
+    @Column(name = "longitude_2")
+    private double longitude_2;
 
     @Column(name = "width")
     private Double width;
