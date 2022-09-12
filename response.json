@@ -1,0 +1,97 @@
+{
+    "uuid": "998cbb82-9ab7-4ac3-84ea-c17b774b3a40",
+    "lastMigration": 22,
+    "name": "transportation",
+    "endpointPrefix": "transportation",
+    "latency": 0,
+    "port": 3000,
+    "hostname": "127.0.0.1",
+    "routes": [
+        {
+            "uuid": "40d4755e-82c1-4e34-bc45-e280d9f09703",
+            "documentation": "Get quotes for all symbols",
+            "method": "post",
+            "endpoint": "upload_file",
+            "responses": [
+                {
+                    "uuid": "895a6dc4-4d8d-4e8a-b5e8-7ffbf04d9c36",
+                    "body": "",
+                    "latency": 0,
+                    "statusCode": 200,
+                    "label": "A list of quotes",
+                    "headers": [
+                        {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                        }
+                    ],
+                    "filePath": "",
+                    "sendFileAsBody": false,
+                    "rules": [],
+                    "rulesOperator": "OR",
+                    "disableTemplating": false,
+                    "fallbackTo404": false,
+                    "default": true
+                }
+            ],
+            "enabled": true,
+            "responseMode": null
+        },
+        {
+            "uuid": "f854d220-777e-4308-8d13-b39fdccd6f91",
+            "documentation": "Get a list of symbols for which we provide real-time quotes",
+            "method": "get",
+            "endpoint": "all_road",
+            "responses": [
+                {
+                    "uuid": "75e25f53-cc50-44d1-8d18-5d7b404d6279",
+                    "body": "[\n    {\n        \"columnId\": 1,\n        \"roadId\": 17.0,\n        \"points\": [\n            {\n                \"lat\": 33.470683,\n                \"lng\": 48.440034\n            },\n            {\n                \"lat\": 33.481929,\n                \"lng\": 48.390806\n            }\n        ],\n        \"width\": 5600.0,\n        \"distanceEachLightPost\": 50.0,\n        \"cablePass\": \"TOP\",\n        \"registrationTime\": \"21:57:39\",\n        \"registrationDate\": \"2022-09-12\",\n        \"lightPosts\": [\n            {\n                \"columnId\": 1,\n                \"lightPostId\": 2020.0,\n                \"sides\": \"TWO_SIDES\",\n                \"status\": \"On\",\n                \"causeOfFailure\": \"\",\n                \"contractingCompany\": \"ا.ل.ل\",\n                \"costs\": 120000,\n                \"height\": 14.0,\n                \"power\": 400.0,\n                \"lightProductionType\": \"بخار سدیم\",\n                \"registrationTime\": \"21:57:39\",\n                \"registrationDate\": \"2022-09-12\",\n                \"registeredRoad\": {\n                    \"roadId\": 17.0\n                }\n            },\n            {\n                \"columnId\": 2,\n                \"lightPostId\": 2021.0,\n                \"sides\": \"TWO_SIDES\",\n                \"status\": \"Off\",\n                \"causeOfFailure\": \"سرقت\",\n                \"contractingCompany\": \"ا.ل.ل\",\n                \"costs\": 120000000,\n                \"height\": 14.0,\n                \"power\": 400.0,\n                \"lightProductionType\": \"بخار سدیم\",\n                \"registrationTime\": \"21:57:39\",\n                \"registrationDate\": \"2022-09-12\",\n                \"registeredRoad\": {\n                    \"roadId\": 17.0\n                }\n            },\n            {\n                \"columnId\": 3,\n                \"lightPostId\": 2022.0,\n                \"sides\": \"TWO_SIDES\",\n                \"status\": \"On\",\n                \"causeOfFailure\": \"\",\n                \"contractingCompany\": \"ا.ل.ل\",\n                \"costs\": 200000,\n                \"height\": 14.0,\n                \"power\": 400.0,\n                \"lightProductionType\": \"بخار سدیم\",\n                \"registrationTime\": \"21:57:39\",\n                \"registrationDate\": \"2022-09-12\",\n                \"registeredRoad\": {\n                    \"roadId\": 17.0\n                }\n            },\n            {\n                \"columnId\": 4,\n                \"lightPostId\": 2023.0,\n                \"sides\": \"TWO_SIDES\",\n                \"status\": \"On\",\n                \"causeOfFailure\": \"\",\n                \"contractingCompany\": \"ا.ل.ل\",\n                \"costs\": 399900,\n                \"height\": 14.0,\n                \"power\": 400.0,\n                \"lightProductionType\": \"بخار سدیم\",\n                \"registrationTime\": \"21:57:39\",\n                \"registrationDate\": \"2022-09-12\",\n                \"registeredRoad\": {\n                    \"roadId\": 17.0\n                }\n            },\n            {\n                \"columnId\": 5,\n                \"lightPostId\": 2024.0,\n                \"sides\": \"TWO_SIDES\",\n                \"status\": \"Off\",\n                \"causeOfFailure\": \"سوختگی\",\n                \"contractingCompany\": \"ا.ل.ل\",\n                \"costs\": 50000000,\n                \"height\": 14.0,\n                \"power\": 400.0,\n                \"lightProductionType\": \"بخار سدیم\",\n                \"registrationTime\": \"21:57:39\",\n                \"registrationDate\": \"2022-09-12\",\n                \"registeredRoad\": {\n                    \"roadId\": 17.0\n                }\n            }\n        ]\n    }\n]",
+                    "latency": 0,
+                    "statusCode": 200,
+                    "label": "A list of symbols",
+                    "headers": [
+                        {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                        }
+                    ],
+                    "filePath": "",
+                    "sendFileAsBody": false,
+                    "rules": [],
+                    "rulesOperator": "OR",
+                    "disableTemplating": false,
+                    "fallbackTo404": false,
+                    "default": true
+                }
+            ],
+            "enabled": true,
+            "responseMode": null
+        }
+    ],
+    "proxyMode": false,
+    "proxyHost": "",
+    "proxyRemovePrefix": false,
+    "tlsOptions": {
+        "enabled": false,
+        "type": "CERT",
+        "pfxPath": "",
+        "certPath": "",
+        "keyPath": "",
+        "caPath": "",
+        "passphrase": ""
+    },
+    "cors": true,
+    "headers": [],
+    "proxyReqHeaders": [
+        {
+            "key": "",
+            "value": ""
+        }
+    ],
+    "proxyResHeaders": [
+        {
+            "key": "",
+            "value": ""
+        }
+    ]
+}
