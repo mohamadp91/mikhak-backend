@@ -1,20 +1,20 @@
 {
-    "uuid": "998cbb82-9ab7-4ac3-84ea-c17b774b3a40",
-    "lastMigration": 22,
+    "uuid": "24a55389-fc96-4bdb-8404-9cbcdfde3bc1",
+    "lastMigration": 24,
     "name": "transportation",
     "endpointPrefix": "transportation",
     "latency": 0,
-    "port": 3000,
+    "port": 8081,
     "hostname": "127.0.0.1",
     "routes": [
         {
-            "uuid": "40d4755e-82c1-4e34-bc45-e280d9f09703",
+            "uuid": "cd1725a8-ec4c-421d-b888-6a2cc9f59269",
             "documentation": "Get quotes for all symbols",
             "method": "post",
             "endpoint": "upload_file",
             "responses": [
                 {
-                    "uuid": "895a6dc4-4d8d-4e8a-b5e8-7ffbf04d9c36",
+                    "uuid": "24155e21-48fe-4b0e-93dd-1d0627d8c793",
                     "body": "",
                     "latency": 0,
                     "statusCode": 200,
@@ -31,26 +31,179 @@
                     "rulesOperator": "OR",
                     "disableTemplating": false,
                     "fallbackTo404": false,
-                    "default": true
+                    "default": true,
+                    "databucketID": "",
+                    "bodyType": "INLINE"
                 }
             ],
             "enabled": true,
             "responseMode": null
         },
         {
-            "uuid": "8bfb0886-54dc-4bee-b179-a3e6ecae9b41",
-            "documentation": "",
+            "uuid": "a73301df-9c48-4e3c-b160-470a90471387",
+            "documentation": "Get a list of symbols for which we provide real-time quotes",
             "method": "get",
             "endpoint": "all_roads",
             "responses": [
                 {
-                    "uuid": "a14feade-7646-496f-995f-a0b0c4cf32a6",
-                    "body": "[\n    {\n        \"columnId\": 1,\n        \"roadId\": 17.0,\n        \"points\": [\n            {\n                \"lat\": 33.470683,\n                \"lng\": 48.440034\n            },\n            {\n                \"lat\": 33.481929,\n                \"lng\": 48.390806\n            }\n        ],\n        \"width\": 5600.0,\n        \"distanceEachLightPost\": 50.0,\n        \"cablePass\": \"TOP\",\n        \"registrationTime\": \"11:07:19\",\n        \"registrationDate\": \"2022-09-13\",\n        \"lightPosts\": [\n            {\n                \"columnId\": 1,\n                \"lightPostId\": 2020.0,\n                \"sides\": \"TWO_SIDES\",\n                \"status\": \"On\",\n                \"causeOfFailure\": \"\",\n                \"contractingCompany\": \"ا.ل.ل\",\n                \"costs\": 120000,\n                \"height\": 14.0,\n                \"power\": 400.0,\n                \"lightProductionType\": \"بخار سدیم\",\n                \"registrationTime\": \"11:07:19\",\n                \"registrationDate\": \"2022-09-13\",\n                \"registeredRoad\": {\n                    \"roadId\": 17.0\n                }\n            },\n            {\n                \"columnId\": 2,\n                \"lightPostId\": 2021.0,\n                \"sides\": \"TWO_SIDES\",\n                \"status\": \"Off\",\n                \"causeOfFailure\": \"سرقت\",\n                \"contractingCompany\": \"ا.ل.ل\",\n                \"costs\": 120000000,\n                \"height\": 14.0,\n                \"power\": 400.0,\n                \"lightProductionType\": \"بخار سدیم\",\n                \"registrationTime\": \"11:07:19\",\n                \"registrationDate\": \"2022-09-13\",\n                \"registeredRoad\": {\n                    \"roadId\": 17.0\n                }\n            },\n            {\n                \"columnId\": 3,\n                \"lightPostId\": 2022.0,\n                \"sides\": \"TWO_SIDES\",\n                \"status\": \"On\",\n                \"causeOfFailure\": \"\",\n                \"contractingCompany\": \"ا.ل.ل\",\n                \"costs\": 200000,\n                \"height\": 14.0,\n                \"power\": 400.0,\n                \"lightProductionType\": \"بخار سدیم\",\n                \"registrationTime\": \"11:07:19\",\n                \"registrationDate\": \"2022-09-13\",\n                \"registeredRoad\": {\n                    \"roadId\": 17.0\n                }\n            },\n            {\n                \"columnId\": 4,\n                \"lightPostId\": 2023.0,\n                \"sides\": \"TWO_SIDES\",\n                \"status\": \"On\",\n                \"causeOfFailure\": \"\",\n                \"contractingCompany\": \"ا.ل.ل\",\n                \"costs\": 399900,\n                \"height\": 14.0,\n                \"power\": 400.0,\n                \"lightProductionType\": \"بخار سدیم\",\n                \"registrationTime\": \"11:07:19\",\n                \"registrationDate\": \"2022-09-13\",\n                \"registeredRoad\": {\n                    \"roadId\": 17.0\n                }\n            },\n            {\n                \"columnId\": 5,\n                \"lightPostId\": 2024.0,\n                \"sides\": \"TWO_SIDES\",\n                \"status\": \"Off\",\n                \"causeOfFailure\": \"سوختگی\",\n                \"contractingCompany\": \"ا.ل.ل\",\n                \"costs\": 50000000,\n                \"height\": 14.0,\n                \"power\": 400.0,\n                \"lightProductionType\": \"بخار سدیم\",\n                \"registrationTime\": \"11:07:19\",\n                \"registrationDate\": \"2022-09-13\",\n                \"registeredRoad\": {\n                    \"roadId\": 17.0\n                }\n            }\n        ]\n    }\n]",
+                    "uuid": "36ee4827-2d83-4f5c-9faa-f6bcc05c1566",
+                    "body": "[\n    {\n        \"columnId\": 1,\n        \"roadId\": 17.0,\n        \"points\": [\n            {\n                \"lat\": 33.470683,\n                \"lng\": 48.440034\n            },\n            {\n                \"lat\": 33.481929,\n                \"lng\": 48.390806\n            }\n        ],\n        \"width\": 5600.0,\n        \"distanceEachLightPost\": 50.0,\n        \"cablePass\": \"Top\",\n        \"registrationTime\": \"21:17:28\",\n        \"registrationDate\": \"2022-12-05\",\n        \"lightPosts\": [\n            {\n                \"columnId\": 1,\n                \"lightPostId\": 2020.0,\n                \"sides\": \"Two\",\n                \"status\": \"On\",\n                \"causeOfFailure\": \"\",\n                \"contractingCompany\": \"ا.ل.ل\",\n                \"costs\": 120000,\n                \"height\": 14.0,\n                \"power\": 400.0,\n                \"lightProductionType\": \"بخار سدیم\",\n                \"registrationTime\": \"21:17:28\",\n                \"registrationDate\": \"2022-12-05\",\n                \"registeredRoad\": {\n                    \"roadId\": 17.0\n                }\n            },\n            {\n                \"columnId\": 2,\n                \"lightPostId\": 2021.0,\n                \"sides\": \"Two\",\n                \"status\": \"Off\",\n                \"causeOfFailure\": \"سرقت\",\n                \"contractingCompany\": \"ا.ل.ل\",\n                \"costs\": 120000000,\n                \"height\": 14.0,\n                \"power\": 400.0,\n                \"lightProductionType\": \"بخار سدیم\",\n                \"registrationTime\": \"21:17:28\",\n                \"registrationDate\": \"2022-12-05\",\n                \"registeredRoad\": {\n                    \"roadId\": 17.0\n                }\n            },\n            {\n                \"columnId\": 3,\n                \"lightPostId\": 2022.0,\n                \"sides\": \"Two\",\n                \"status\": \"On\",\n                \"causeOfFailure\": \"\",\n                \"contractingCompany\": \"ا.ل.ل\",\n                \"costs\": 200000,\n                \"height\": 14.0,\n                \"power\": 400.0,\n                \"lightProductionType\": \"بخار سدیم\",\n                \"registrationTime\": \"21:17:29\",\n                \"registrationDate\": \"2022-12-05\",\n                \"registeredRoad\": {\n                    \"roadId\": 17.0\n                }\n            },\n            {\n                \"columnId\": 4,\n                \"lightPostId\": 2023.0,\n                \"sides\": \"Two\",\n                \"status\": \"On\",\n                \"causeOfFailure\": \"\",\n                \"contractingCompany\": \"ا.ل.ل\",\n                \"costs\": 399900,\n                \"height\": 14.0,\n                \"power\": 400.0,\n                \"lightProductionType\": \"بخار سدیم\",\n                \"registrationTime\": \"21:17:29\",\n                \"registrationDate\": \"2022-12-05\",\n                \"registeredRoad\": {\n                    \"roadId\": 17.0\n                }\n            },\n            {\n                \"columnId\": 5,\n                \"lightPostId\": 2024.0,\n                \"sides\": \"Two\",\n                \"status\": \"Off\",\n                \"causeOfFailure\": \"سوختگی\",\n                \"contractingCompany\": \"ا.ل.ل\",\n                \"costs\": 50000000,\n                \"height\": 14.0,\n                \"power\": 400.0,\n                \"lightProductionType\": \"بخار سدیم\",\n                \"registrationTime\": \"21:17:29\",\n                \"registrationDate\": \"2022-12-05\",\n                \"registeredRoad\": {\n                    \"roadId\": 17.0\n                }\n            }\n        ]\n    }\n]",
+                    "latency": 0,
+                    "statusCode": 200,
+                    "label": "A list of symbols",
+                    "headers": [
+                        {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                        }
+                    ],
+                    "filePath": "",
+                    "sendFileAsBody": false,
+                    "rules": [],
+                    "rulesOperator": "OR",
+                    "disableTemplating": false,
+                    "fallbackTo404": false,
+                    "default": true,
+                    "databucketID": "",
+                    "bodyType": "INLINE"
+                }
+            ],
+            "enabled": true,
+            "responseMode": null
+        },
+        {
+            "uuid": "88ae0839-9f2b-4ea4-b75c-c78d51554579",
+            "documentation": "",
+            "method": "post",
+            "endpoint": "submit_light_state",
+            "responses": [
+                {
+                    "uuid": "ec8d5e83-dfc0-48e6-a80b-71cebdc019cd",
+                    "body": "{}",
+                    "latency": 0,
+                    "statusCode": 200,
+                    "label": "",
+                    "headers": [
+                        {
+                            "key": "content-type",
+                            "value": "text/json; charset=utf-8"
+                        },
+                        {
+                            "key": "content-length",
+                            "value": "2"
+                        }
+                    ],
+                    "filePath": "",
+                    "sendFileAsBody": false,
+                    "rules": [],
+                    "rulesOperator": "OR",
+                    "disableTemplating": false,
+                    "fallbackTo404": false,
+                    "default": false,
+                    "databucketID": "",
+                    "bodyType": "INLINE"
+                }
+            ],
+            "enabled": true,
+            "responseMode": null
+        },
+        {
+            "uuid": "9b1d7496-46a1-4a5f-b7d8-6abfc5a17ff3",
+            "documentation": "",
+            "method": "post",
+            "endpoint": "logIn",
+            "responses": [
+                {
+                    "uuid": "8dad1a59-77b5-458b-85a5-33b221028c3e",
+                    "body": "{}",
                     "latency": 0,
                     "statusCode": 200,
                     "label": "",
                     "headers": [],
                     "filePath": "",
+                    "sendFileAsBody": false,
+                    "rules": [],
+                    "rulesOperator": "OR",
+                    "disableTemplating": false,
+                    "fallbackTo404": false,
+                    "default": true,
+                    "databucketID": "",
+                    "bodyType": "INLINE"
+                }
+            ],
+            "enabled": true,
+            "responseMode": null
+        },
+        {
+            "uuid": "6129ff73-5773-4a9c-b9b4-a014361ca5ab",
+            "documentation": "",
+            "method": "post",
+            "endpoint": "check",
+            "responses": [
+                {
+                    "uuid": "9354d524-a274-4ae0-b1fc-1abc5f67dfcd",
+                    "body": "User_Verified",
+                    "latency": 0,
+                    "statusCode": 200,
+                    "label": "",
+                    "headers": [],
+                    "filePath": "",
+                    "sendFileAsBody": false,
+                    "rules": [],
+                    "rulesOperator": "OR",
+                    "disableTemplating": false,
+                    "fallbackTo404": false,
+                    "default": true,
+                    "databucketID": "",
+                    "bodyType": "INLINE"
+                }
+            ],
+            "enabled": true,
+            "responseMode": null
+        },
+        {
+            "uuid": "45bc89c1-e706-43b4-b109-dbb4cf94888f",
+            "documentation": "",
+            "method": "post",
+            "endpoint": "check/:id",
+            "responses": [
+                {
+                    "uuid": "8a678377-e552-49b2-b59d-db7fa11f9514",
+                    "body": "First_Login",
+                    "latency": 0,
+                    "statusCode": 200,
+                    "label": "",
+                    "headers": [],
+                    "filePath": "",
+                    "sendFileAsBody": false,
+                    "rules": [],
+                    "rulesOperator": "OR",
+                    "disableTemplating": false,
+                    "fallbackTo404": false,
+                    "default": true,
+                    "databucketID": "",
+                    "bodyType": "INLINE"
+                }
+            ],
+            "enabled": true,
+            "responseMode": null
+        },
+        {
+            "uuid": "7d41af7e-49d9-4518-8a8e-1e8a8ff799dd",
+            "documentation": "",
+            "method": "get",
+            "endpoint": "lightposts",
+            "responses": [
+                {
+                    "uuid": "ee579c27-ffc2-4dea-b280-5dde8425578f",
+                    "body": "[\n    {\n        \"columnId\": 1,\n        \"lightPostId\": 2020.0,\n        \"sides\": \"Two\",\n        \"status\": \"On\",\n        \"causeOfFailure\": \"\",\n        \"contractingCompany\": \"ا.ل.ل\",\n        \"costs\": 120000,\n        \"height\": 14.0,\n        \"power\": 400.0,\n        \"lightProductionType\": \"بخار سدیم\",\n        \"registrationTime\": \"21:17:28\",\n        \"registrationDate\": \"2022-12-05\",\n        \"registeredRoad\": {\n            \"roadId\": 17.0\n        }\n    },\n    {\n        \"columnId\": 2,\n        \"lightPostId\": 2021.0,\n        \"sides\": \"Two\",\n        \"status\": \"Off\",\n        \"causeOfFailure\": \"سرقت\",\n        \"contractingCompany\": \"ا.ل.ل\",\n        \"costs\": 120000000,\n        \"height\": 14.0,\n        \"power\": 400.0,\n        \"lightProductionType\": \"بخار سدیم\",\n        \"registrationTime\": \"21:17:28\",\n        \"registrationDate\": \"2022-12-05\",\n        \"registeredRoad\": {\n            \"roadId\": 17.0\n        }\n    },\n    {\n        \"columnId\": 3,\n        \"lightPostId\": 2022.0,\n        \"sides\": \"Two\",\n        \"status\": \"On\",\n        \"causeOfFailure\": \"\",\n        \"contractingCompany\": \"ا.ل.ل\",\n        \"costs\": 200000,\n        \"height\": 14.0,\n        \"power\": 400.0,\n        \"lightProductionType\": \"بخار سدیم\",\n        \"registrationTime\": \"21:17:29\",\n        \"registrationDate\": \"2022-12-05\",\n        \"registeredRoad\": {\n            \"roadId\": 17.0\n        }\n    },\n    {\n        \"columnId\": 4,\n        \"lightPostId\": 2023.0,\n        \"sides\": \"Two\",\n        \"status\": \"On\",\n        \"causeOfFailure\": \"\",\n        \"contractingCompany\": \"ا.ل.ل\",\n        \"costs\": 399900,\n        \"height\": 14.0,\n        \"power\": 400.0,\n        \"lightProductionType\": \"بخار سدیم\",\n        \"registrationTime\": \"21:17:29\",\n        \"registrationDate\": \"2022-12-05\",\n        \"registeredRoad\": {\n            \"roadId\": 17.0\n        }\n    },\n    {\n        \"columnId\": 5,\n        \"lightPostId\": 2024.0,\n        \"sides\": \"Two\",\n        \"status\": \"Off\",\n        \"causeOfFailure\": \"سوختگی\",\n        \"contractingCompany\": \"ا.ل.ل\",\n        \"costs\": 50000000,\n        \"height\": 14.0,\n        \"power\": 400.0,\n        \"lightProductionType\": \"بخار سدیم\",\n        \"registrationTime\": \"21:17:29\",\n        \"registrationDate\": \"2022-12-05\",\n        \"registeredRoad\": {\n            \"roadId\": 17.0\n        }\n    }\n]",
+                    "latency": 0,
+                    "statusCode": 200,
+                    "label": "",
+                    "headers": [],
+                    "bodyType": "INLINE",
+                    "filePath": "",
+                    "databucketID": "",
                     "sendFileAsBody": false,
                     "rules": [],
                     "rulesOperator": "OR",
@@ -88,5 +241,6 @@
             "key": "",
             "value": ""
         }
-    ]
+    ],
+    "data": []
 }
